@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/ffreville/infra-monitoring-backend/models"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -75,6 +76,14 @@ func (k *KubernetesClient) GetNamespaces(ctx context.Context) ([]models.Namespac
 	return namespaces, nil
 }
 
+func GetContainersImage(containers []v1.Container) []string {
+	var images []string
+	for _, container := range containers {
+		images = append(images, container.Image)
+	}
+	return images
+}
+
 // GetDeployments récupère tous les déploiements du cluster ou d'un namespace spécifique
 func (k *KubernetesClient) GetDeployments(ctx context.Context, namespace string) ([]models.Deployment, error) {
 	deploymentList, err := k.clientset.AppsV1().Deployments(namespace).List(ctx, metav1.ListOptions{})
@@ -92,6 +101,7 @@ func (k *KubernetesClient) GetDeployments(ctx context.Context, namespace string)
 			Available: deploy.Status.AvailableReplicas,
 			Labels:    deploy.Labels,
 			Age:       deploy.CreationTimestamp.Format("2006-01-02 15:04:05"),
+			Images:    GetContainersImage(deploy.Spec.Template.Spec.Containers),
 		}
 		deployments = append(deployments, deployment)
 	}

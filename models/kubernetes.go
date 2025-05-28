@@ -17,6 +17,7 @@ type Deployment struct {
 	Available int32             `json:"available"`
 	Labels    map[string]string `json:"labels,omitempty"`
 	Age       string            `json:"age"`
+	Images    []string          `json:"images"`
 }
 
 // CronJob représente un cronjob simplifié
