@@ -19,7 +19,7 @@ COPY main.go .
 # Compiler l'application
 # CGO_ENABLED=0 pour un binaire statique
 # GOOS=linux pour s'assurer que le binaire fonctionne sur Linux
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o kubernetes-api main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o infra-monitoring-backend main.go
 
 # Production stage
 FROM alpine:latest
@@ -35,10 +35,10 @@ RUN addgroup -g 1001 -S appgroup && \
 WORKDIR /app
 
 # Copier le binaire depuis le stage de build
-COPY --from=builder /app/kubernetes-api .
+COPY --from=builder /app/infra-monitoring-backend .
 
 # Changer le propriétaire du fichier
-RUN chown appuser:appgroup kubernetes-api
+RUN chown appuser:appgroup infra-monitoring-backend
 
 # Utiliser l'utilisateur non-root
 USER appuser
@@ -50,4 +50,4 @@ EXPOSE 8080
 ENV PORT=8080
 
 # Commande par défaut
-CMD ["./kubernetes-api"]
+CMD ["./infra-monitoring-backend"]
