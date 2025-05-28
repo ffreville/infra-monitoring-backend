@@ -1,4 +1,4 @@
-module infra-monitoring-backend
+module github.com/ffreville/infra-monitoring-backend
 
 go 1.24.3
 
