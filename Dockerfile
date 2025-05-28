@@ -14,12 +14,12 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copier le code source
-COPY main.go .
+COPY . .
 
 # Compiler l'application
 # CGO_ENABLED=0 pour un binaire statique
 # GOOS=linux pour s'assurer que le binaire fonctionne sur Linux
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o infra-monitoring-backend main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o github.com/ffreville/infra-monitoring-backend
 
 # Production stage
 FROM alpine:latest
