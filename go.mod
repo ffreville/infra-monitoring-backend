@@ -1,4 +1,4 @@
-module kubernetes-api
+module infra-monitoring-backend
 
 go 1.24.3
 

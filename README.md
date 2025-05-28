@@ -24,12 +24,12 @@ Une API REST écrite en Go pour interagir avec les ressources d'un cluster Kuber
 1. **Cloner le projet**
 ```bash
 git clone <repository-url>
-cd kubernetes-api
+cd infra-monitoring-backend
 ```
 
 2. **Initialiser le module Go**
 ```bash
-go mod init kubernetes-api
+go mod init infra-monitoring-backend
 ```
 
 3. **Installer les dépendances**
@@ -48,17 +48,17 @@ go run main.go
 
 1. **Construire l'image**
 ```bash
-docker build -t kubernetes-api:latest .
+docker build -t infra-monitoring-backend:latest .
 ```
 
 2. **Lancer le conteneur**
 ```bash
 # Avec kubeconfig local
 docker run -d \
-  --name kubernetes-api \
+  --name infra-monitoring-backend \
   -p 8080:8080 \
   -v ~/.kube/config:/home/appuser/.kube/config:ro \
-  kubernetes-api:latest
+  infra-monitoring-backend:latest
 ```
 
 ## 🔧 Configuration
