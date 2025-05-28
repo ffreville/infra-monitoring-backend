@@ -35,7 +35,7 @@ RUN addgroup -g 1001 -S appgroup && \
 WORKDIR /app
 
 # Copier le binaire depuis le stage de build
-COPY --from=builder /app/infra-monitoring-backend .
+COPY --from=builder /app/github.com/ffreville/infra-monitoring-backend .
 
 # Changer le propriétaire du fichier
 RUN chown appuser:appgroup infra-monitoring-backend
