@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/ffreville/infra-monitoring-backend/models"
 	v1 "k8s.io/api/core/v1"
@@ -79,7 +80,9 @@ func (k *KubernetesClient) GetNamespaces(ctx context.Context) ([]models.Namespac
 func GetContainersImage(containers []v1.Container) []string {
 	var images []string
 	for _, container := range containers {
-		images = append(images, container.Image)
+		var nameSplitted []string = strings.Split(strings.Split(container.Image, "@")[0], "/")
+
+		images = append(images, nameSplitted[len(nameSplitted)-1])
 	}
 	return images
 }
