@@ -135,6 +135,7 @@ func (k *KubernetesClient) GetCronJobs(ctx context.Context, namespace string) ([
 			LastRun:   lastRun,
 			Labels:    cj.Labels,
 			Age:       cj.CreationTimestamp.Format("2006-01-02 15:04:05"),
+			Images:    GetContainersImage(cj.Spec.JobTemplate.Spec.Template.Spec.Containers),
 		}
 		cronJobs = append(cronJobs, cronJob)
 	}
@@ -158,6 +159,7 @@ func (k *KubernetesClient) GetStatefulSets(ctx context.Context, namespace string
 			Ready:     sts.Status.ReadyReplicas,
 			Labels:    sts.Labels,
 			Age:       sts.CreationTimestamp.Format("2006-01-02 15:04:05"),
+			Images:    GetContainersImage(sts.Spec.Template.Spec.Containers),
 		}
 		statefulSets = append(statefulSets, statefulSet)
 	}

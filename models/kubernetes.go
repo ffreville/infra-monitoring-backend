@@ -30,6 +30,7 @@ type CronJob struct {
 	LastRun   string            `json:"lastRun,omitempty"`
 	Labels    map[string]string `json:"labels,omitempty"`
 	Age       string            `json:"age"`
+	Images    []string          `json:"images"`
 }
 
 // StatefulSet représente un statefulset simplifié
@@ -40,4 +41,5 @@ type StatefulSet struct {
 	Ready     int32             `json:"ready"`
 	Labels    map[string]string `json:"labels,omitempty"`
 	Age       string            `json:"age"`
+	Images    []string          `json:"images"`
 }
